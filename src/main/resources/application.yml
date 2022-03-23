@@ -5,9 +5,5 @@ spring:
     username: root
     password: 1234
     
-  messages:
-    basename: messages,config.i18n.messages
-    encoding: UTF-8
-
 mybatis:
   mapper-locations: classpath:mappers/**.xml
