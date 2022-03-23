@@ -18,6 +18,7 @@
     reg_dtime DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '등록일시',
     
     upt_dtime DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '수정일시'
+  
   );
 2. 구현범위
   - 회원가입 기능
