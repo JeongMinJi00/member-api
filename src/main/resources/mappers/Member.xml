@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Member">
+	<!-- 
+	내용 : 기 가입여부 확인
+	 -->
+	<select id="isExistMember" resultType="int">
+		SELECT count(1)
+		  FROM member
+		 WHERE email = #{email, jdbcType=VARCHAR}
+	</select>
+
+	<!-- 
+	내용 : 회원가입
+	 -->
+	<insert id="registMember">
+        INSERT INTO member(email, user_nm, nick_nm, password, salt, tel_no, reg_dtime, upt_dtime )
+        VALUES (#{email, jdbcType=VARCHAR}, #{user_nm, jdbcType=VARCHAR}, #{nick_nm, jdbcType=VARCHAR}, #{password, jdbcType=VARCHAR}, #{salt, jdbcType=VARCHAR}, #{tel_no, jdbcType=VARCHAR}, sysdate(), sysdate() )
+    </insert>
+    
+    <!-- 
+    내용 : 로그인시 회원정보 조회
+     -->
+    <select id="getLogin" resultType="com.api.member.dto.Member">
+    	SELECT * 
+    	  FROM member 
+    	 WHERE email = #{email, jdbcType=VARCHAR}
+    	   AND password = #{password, jdbcType=VARCHAR}
+    </select>
+    
+    <!-- 
+    내용 : 로그인시 비밀번호salt 조회
+     -->
+    <select id="getSaltPw" resultType="String">
+    	SELECT salt
+    	  FROM member
+    	 WHERE email = #{email, jdbcType=VARCHAR}
+    </select>
+    
+	<!-- 
+	내용 : 내 정보 조회
+	 -->
+    <select id="getMemberInfo" resultType="Map">
+    	SELECT email, user_nm, nick_nm, tel_no
+    	  FROM member 
+    	 WHERE mbr_no = #{mbr_no, jdbcType=VARCHAR}
+    </select>
+    
+    <!-- 
+    내용 : 전화번호 인증
+     -->
+    <select id="getMemberFromTel" resultType="Map">
+    	SELECT mbr_no, email, user_nm
+    	  FROM member 
+    	 WHERE tel_no = #{tel_no, jdbcType=VARCHAR}
+    </select>
+    
+    <!-- 
+    내용 : 비밀번호 변경
+     -->
+    <update id="changeMyPw">
+    	UPDATE member
+    	   SET password = #{password, jdbcType=VARCHAR},
+    	       salt = #{salt, jdbcType=VARCHAR},
+    	       upt_dtime = sysdate()
+    	 WHERE tel_no = #{tel_no, jdbcType=VARCHAR}
+    	   AND mbr_no = #{mbr_no, jdbcType=INTEGER}
+    </update>
+</mapper>
