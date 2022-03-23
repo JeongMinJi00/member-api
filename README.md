@@ -1,6 +1,6 @@
 ## 회원정보 API
 
-#1. 테이블 생성
+1. 테이블 생성
   CREATE TABLE member(
     mbr_no INT(15) NOT NULL COMMENT '회원번호' PRIMARY KEY AUTO_INCREMENT,
 
