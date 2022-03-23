@@ -32,3 +32,7 @@
   - java 11
   - spring-boot 2.6.4.RELEASE
   - lombok 1.18.22
+
+4. 사용 Tool
+  - eclipse (Marketplace에서 sts설치 필요)
+  - Mysql
